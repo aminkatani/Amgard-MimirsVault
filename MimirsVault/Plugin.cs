@@ -7,16 +7,18 @@ using Jotunn.Managers;
 using Jotunn.Utils;
 using UnityEngine;
 
-namespace ItemSorter
+namespace MimirsVault
 {
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
     [BepInDependency(Jotunn.Main.ModGuid)]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.Minor)]
     internal class Plugin : BaseUnityPlugin
     {
-        public const string PluginGUID = "mkatani.ItemSorter";
-        public const string PluginName = "ItemSorter";
+        public const string PluginGUID = "Amgard.MimirsVault";
+        public const string PluginName = "MimirsVault";
         public const string PluginVersion = "0.4.0";
+        // Never rename these: worlds store pieces by prefab name, and a renamed prefab
+        // would make Valheim delete every box already built.
         public const string SorterPrefabName = "piece_itemsorter";
         public const string SmelterBoxPrefabName = "piece_smelterbox";
 

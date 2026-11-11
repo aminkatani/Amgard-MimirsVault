@@ -4,7 +4,7 @@ using System.Reflection;
 using HarmonyLib;
 using UnityEngine;
 
-namespace ItemSorter
+namespace MimirsVault
 {
     /// <summary>Finding chests around a sorter and moving items between inventories.</summary>
     internal static class SorterLogic

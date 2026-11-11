@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace ItemSorter
+namespace MimirsVault
 {
     /// <summary>
     /// Lives on every Item Sorter chest. Sorts dropped-in items into nearby chests and, while the
@@ -11,7 +11,7 @@ namespace ItemSorter
     /// </summary>
     public class SorterBehaviour : MonoBehaviour
     {
-        private const string SearchControl = "ItemSorterSearch";
+        private const string SearchControl = "MimirsVaultSearch";
         private const float RefreshInterval = 0.5f;
 
         /// <summary>True while the search box has keyboard focus; game input is blocked meanwhile.</summary>

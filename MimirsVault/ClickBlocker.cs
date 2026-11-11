@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ItemSorter
+namespace MimirsVault
 {
     /// <summary>
     /// An invisible game-UI panel placed exactly behind the sorter window. The window is drawn with
@@ -30,7 +30,7 @@ namespace ItemSorter
 
         private static void Create()
         {
-            _root = new GameObject("ItemSorter_ClickBlocker");
+            _root = new GameObject("MimirsVault_ClickBlocker");
             Object.DontDestroyOnLoad(_root);
             var canvas = _root.AddComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;

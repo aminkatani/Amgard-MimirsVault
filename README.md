@@ -1,4 +1,7 @@
-# ItemSorter
+# Mímir's Vault
+
+Magical storage for Valheim by **Amgard**: an Item Sorter that keeps your chests in order and a
+Smelter Box that runs your smelters for you.
 
 Adds an **Item Sorter** to the Hammer (Furniture tab): a glowing light-blue chest with floating
 sparkles. Cost: 10 Wood, 10 Thistle, 5 Greydwarf eyes.
@@ -43,7 +46,7 @@ Build it near a **Forge** for 5 Fine wood, 5 Core wood, 5 Greydwarf eyes, 5 Bron
 - The glow and embers get stronger while a smelter in range is working.
 
 ## Config
-`BepInEx/config/mkatani.ItemSorter.cfg` (or r2modman's Config editor): `Radius`, `UseEmptySlots`,
+`BepInEx/config/Amgard.MimirsVault.cfg` (or r2modman's Config editor): `Radius`, `UseEmptySlots`,
 `PlaceNewItems`, `GroupSimilarItems`, `SortDelay`; under SmelterBox `Radius`, `FeedInterval`, `NeverFeed`,
 `CatchOutput`; under Visuals `Sparkles` and `Glow`.
 

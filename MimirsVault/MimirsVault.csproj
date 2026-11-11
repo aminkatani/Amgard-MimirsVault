@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net462</TargetFramework>
-    <AssemblyName>ItemSorter</AssemblyName>
-    <RootNamespace>ItemSorter</RootNamespace>
+    <AssemblyName>MimirsVault</AssemblyName>
+    <RootNamespace>MimirsVault</RootNamespace>
     <LangVersion>latest</LangVersion>
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
@@ -40,9 +40,9 @@
   <!-- After every build: install into the r2modman profile and create a Thunderstore zip. -->
   <Target Name="InstallAndPackage" AfterTargets="Build">
     <PropertyGroup>
-      <PluginInstallDir>$(BepInExDir)\plugins\ItemSorter</PluginInstallDir>
+      <PluginInstallDir>$(BepInExDir)\plugins\Amgard-MimirsVault</PluginInstallDir>
       <PackageStage>$(MSBuildProjectDirectory)\..\package\stage</PackageStage>
-      <PackageZip>$(MSBuildProjectDirectory)\..\package\ItemSorter-$(Version).zip</PackageZip>
+      <PackageZip>$(MSBuildProjectDirectory)\..\package\Amgard-MimirsVault-$(Version).zip</PackageZip>
     </PropertyGroup>
     <MakeDir Directories="$(PluginInstallDir)" />
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PluginInstallDir)" />

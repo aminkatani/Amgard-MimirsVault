@@ -4,7 +4,7 @@ using System.Linq;
 using HarmonyLib;
 using UnityEngine;
 
-namespace ItemSorter
+namespace MimirsVault
 {
     /// <summary>
     /// Lives on every Smelter Box. Feeds ore and fuel from the box into nearby smelters (smelter, blast furnace,

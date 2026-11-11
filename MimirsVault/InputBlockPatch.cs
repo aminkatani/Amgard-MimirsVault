@@ -3,7 +3,7 @@ using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 
-namespace ItemSorter
+namespace MimirsVault
 {
     /// <summary>
     /// While the sorter's search box has focus, stop typed letters from reaching the game

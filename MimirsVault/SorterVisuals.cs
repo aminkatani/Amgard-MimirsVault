@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace ItemSorter
+namespace MimirsVault
 {
     /// <summary>Colours and effect settings for one kind of magical box.</summary>
     internal class Palette
@@ -192,7 +192,7 @@ namespace ItemSorter
             if (material == null) return null;
 
             // Build inactive so the system doesn't start playing with default settings.
-            var go = new GameObject($"ItemSorter_{palette.Name}Particles");
+            var go = new GameObject($"MimirsVault_{palette.Name}Particles");
             go.SetActive(false);
             go.transform.SetParent(parent, false);
             go.transform.localPosition = palette.EmitterPosition;
@@ -247,7 +247,7 @@ namespace ItemSorter
 
         private static Light AddLight(Transform parent, Palette palette)
         {
-            var go = new GameObject($"ItemSorter_{palette.Name}Glow");
+            var go = new GameObject($"MimirsVault_{palette.Name}Glow");
             go.transform.SetParent(parent, false);
             go.transform.localPosition = new Vector3(0f, 0.9f, 0f);
             var light = go.AddComponent<Light>();
