@@ -1,0 +1,12 @@
+# Build output
+bin/
+obj/
+package/
+
+# IDE files
+.vs/
+.vscode/
+*.user
+
+# Not part of the mod (downloaded r2modman installers)
+ebkr-r2modman-*/

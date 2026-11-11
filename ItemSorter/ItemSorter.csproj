@@ -1,0 +1,59 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net462</TargetFramework>
+    <AssemblyName>ItemSorter</AssemblyName>
+    <RootNamespace>ItemSorter</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <Version>0.4.0</Version>
+
+    <!-- Override on the command line if your paths differ: dotnet build -p:ValheimDir=... -p:ProfileDir=... -->
+    <ValheimDir Condition="'$(ValheimDir)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Valheim</ValheimDir>
+    <ProfileDir Condition="'$(ProfileDir)' == ''">$(APPDATA)\r2modmanPlus-local\Valheim\profiles\mods</ProfileDir>
+    <ManagedDir>$(ValheimDir)\valheim_Data\Managed</ManagedDir>
+    <BepInExDir>$(ProfileDir)\BepInEx</BepInExDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <!-- AI disclosure required by Thunderstore: https://wiki.thunderstore.io/llms-and-ai-generated-files -->
+  <ItemGroup>
+    <AssemblyMetadata Include="AI_Assisted_Creation" Value="This assembly was partially or fully created with the assistance of Generative AI (Claude Opus 5.5 by Anthropic)." />
+    <AssemblyMetadata Include="AI_Model_Vendor" Value="Anthropic" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="BepInEx"><HintPath>$(BepInExDir)\core\BepInEx.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="0Harmony"><HintPath>$(BepInExDir)\core\0Harmony.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Jotunn"><HintPath>$(BepInExDir)\plugins\ValheimModding-Jotunn\Jotunn.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="assembly_valheim"><HintPath>$(ManagedDir)\assembly_valheim.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="assembly_utils"><HintPath>$(ManagedDir)\assembly_utils.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="assembly_guiutils"><HintPath>$(ManagedDir)\assembly_guiutils.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="$(ManagedDir)\UnityEngine*.dll;$(ManagedDir)\Unity.*.dll"><Private>false</Private></Reference>
+  </ItemGroup>
+
+  <!-- After every build: install into the r2modman profile and create a Thunderstore zip. -->
+  <Target Name="InstallAndPackage" AfterTargets="Build">
+    <PropertyGroup>
+      <PluginInstallDir>$(BepInExDir)\plugins\ItemSorter</PluginInstallDir>
+      <PackageStage>$(MSBuildProjectDirectory)\..\package\stage</PackageStage>
+      <PackageZip>$(MSBuildProjectDirectory)\..\package\ItemSorter-$(Version).zip</PackageZip>
+    </PropertyGroup>
+    <MakeDir Directories="$(PluginInstallDir)" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PluginInstallDir)" />
+
+    <RemoveDir Directories="$(PackageStage)" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PackageStage)\plugins" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\Thunderstore\manifest.json;$(MSBuildProjectDirectory)\..\Thunderstore\icon.png;$(MSBuildProjectDirectory)\..\README.md" DestinationFolder="$(PackageStage)" />
+    <Delete Files="$(PackageZip)" />
+    <ZipDirectory SourceDirectory="$(PackageStage)" DestinationFile="$(PackageZip)" />
+    <Message Importance="high" Text="Installed to $(PluginInstallDir)" />
+    <Message Importance="high" Text="Package: $(PackageZip)" />
+  </Target>
+
+</Project>
