@@ -18,6 +18,10 @@ Take a stack, everything (Shift) or just one (Ctrl).
 
 ![Item Sorter window searching for "torc" and finding Torch](docs/screenshots/sorter-search.webp)
 
+**The Smelter Box** – a crimson chest with rising embers that feeds your smelters and collects what they make.
+
+![The red Smelter Box glowing with embers, opened next to the inventory](docs/screenshots/smelter-box.webp)
+
 Adds an **Item Sorter** to the Hammer (Furniture tab): a glowing light-blue chest with floating
 sparkles. Cost: 10 Wood, 10 Thistle, 5 Greydwarf eyes.
 
