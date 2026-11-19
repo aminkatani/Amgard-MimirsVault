@@ -23,7 +23,7 @@ namespace MimirsVault
 
         private static bool Prefix(ref bool __result)
         {
-            if (!SorterBehaviour.SearchFocused) return true;
+            if (!SorterPanel.SearchFocused) return true;
             __result = false;
             return false;
         }

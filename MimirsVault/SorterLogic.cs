@@ -277,6 +277,46 @@ namespace MimirsVault
             public int Total;
         }
 
+        /// <summary>Which filter button an item falls under in the sorter window.</summary>
+        internal static Category CategoryOf(ItemDrop.ItemData item)
+        {
+            var shared = item.m_shared;
+            switch (shared.m_itemType)
+            {
+                case ItemDrop.ItemData.ItemType.OneHandedWeapon:
+                case ItemDrop.ItemData.ItemType.TwoHandedWeapon:
+                case ItemDrop.ItemData.ItemType.TwoHandedWeaponLeft:
+                case ItemDrop.ItemData.ItemType.Bow:
+                case ItemDrop.ItemData.ItemType.Shield:
+                case ItemDrop.ItemData.ItemType.Attach_Atgeir:
+                    return Category.Weapons;
+                case ItemDrop.ItemData.ItemType.Helmet:
+                case ItemDrop.ItemData.ItemType.Chest:
+                case ItemDrop.ItemData.ItemType.Legs:
+                case ItemDrop.ItemData.ItemType.Shoulder:
+                case ItemDrop.ItemData.ItemType.Hands:
+                case ItemDrop.ItemData.ItemType.Utility:
+                case ItemDrop.ItemData.ItemType.Trinket:
+                    return Category.Armor;
+                case ItemDrop.ItemData.ItemType.Tool:
+                case ItemDrop.ItemData.ItemType.Torch:
+                    return Category.Tools;
+                case ItemDrop.ItemData.ItemType.Consumable:
+                    bool isFood = shared.m_food > 0f || shared.m_foodStamina > 0f || shared.m_foodEitr > 0f;
+                    return isFood ? Category.Food : Category.Potions;
+                case ItemDrop.ItemData.ItemType.Material:
+                case ItemDrop.ItemData.ItemType.Fish:
+                    return Category.Materials;
+                case ItemDrop.ItemData.ItemType.Ammo:
+                case ItemDrop.ItemData.ItemType.AmmoNonEquipable:
+                    return Category.Ammo;
+                case ItemDrop.ItemData.ItemType.Trophy:
+                    return Category.Trophies;
+                default:
+                    return Category.Misc;
+            }
+        }
+
         internal static string KeyOf(ItemDrop.ItemData item) =>
             $"{item.m_shared.m_name}|{item.m_quality}|{item.m_worldLevel}";
 
@@ -292,7 +332,7 @@ namespace MimirsVault
                 if (entry == null)
                 {
                     string name = Localization.instance.Localize(item.m_shared.m_name);
-                    if (item.m_quality > 1) name += $" ★{item.m_quality}";
+                    if (item.m_quality > 1) name += $" (level {item.m_quality})"; // Valheim's fonts have no star glyph
                     entry = new Entry { Sample = item, Key = KeyOf(item), DisplayName = name };
                     entries.Add(entry);
                 }

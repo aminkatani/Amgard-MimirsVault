@@ -1,6 +1,6 @@
 {
   "name": "MimirsVault",
-  "version_number": "0.4.0",
+  "version_number": "0.5.0",
   "website_url": "",
   "description": "Magical Item Sorter chest that stacks items into nearby chests, plus a Smelter Box that feeds smelters and collects their output.",
   "dependencies": [

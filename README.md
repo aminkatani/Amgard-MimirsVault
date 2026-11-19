@@ -25,8 +25,10 @@ Only chests you built and are allowed to open are used (no graves, carts, ships,
 warded chests you lack access to, or chests another player has open).
 
 ## Taking items
-While the sorter is open, a panel in the centre of the screen lists every item in all chests in range,
-summed up, in alphabetical order. Type in **Search** to filter.
+While the sorter is open, a Valheim-styled window lists every item in all chests in range,
+summed up, in alphabetical order. Type in **Search** or pick a category (Weapons, Armor, Tools,
+Food, Potions, Materials, Ammo, Trophies, Misc) to filter. Drag the window by its background to
+move it; it remembers where you put it, and **Reset** puts it back next to the crafting panel.
 
 - **Take** – one full stack
 - **Shift + Take** – everything

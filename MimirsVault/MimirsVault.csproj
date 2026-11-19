@@ -8,7 +8,7 @@
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <Version>0.4.0</Version>
+    <Version>0.5.0</Version>
 
     <!-- Override on the command line if your paths differ: dotnet build -p:ValheimDir=... -p:ProfileDir=... -->
     <ValheimDir Condition="'$(ValheimDir)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Valheim</ValheimDir>

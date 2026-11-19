@@ -16,7 +16,7 @@ namespace MimirsVault
     {
         public const string PluginGUID = "Amgard.MimirsVault";
         public const string PluginName = "MimirsVault";
-        public const string PluginVersion = "0.4.0";
+        public const string PluginVersion = "0.5.0";
         // Never rename these: worlds store pieces by prefab name, and a renamed prefab
         // would make Valheim delete every box already built.
         public const string SorterPrefabName = "piece_itemsorter";
@@ -33,6 +33,7 @@ namespace MimirsVault
         internal static ConfigEntry<float> FeedInterval;
         internal static ConfigEntry<string> NeverFeed;
         internal static ConfigEntry<bool> CatchOutput;
+        internal static ConfigEntry<string> PanelPosition;
 
         private void Awake()
         {
@@ -61,6 +62,9 @@ namespace MimirsVault
                 "Comma-separated item prefab names that are never fed into a smelter (keeps valuable wood out of the kiln).");
             CatchOutput = Config.Bind("SmelterBox", "CatchOutput", true,
                 "Put what nearby smelters produce into the nearest Smelter Box with room instead of dropping it.");
+
+            PanelPosition = Config.Bind("Panel", "Position", "",
+                "Where the Item Sorter window sits (saved when you drag it). Leave empty for the default spot next to the crafting panel.");
 
             PrefabManager.OnVanillaPrefabsAvailable += AddSorterPiece;
             PrefabManager.OnVanillaPrefabsAvailable += AddSmelterBoxPiece;
