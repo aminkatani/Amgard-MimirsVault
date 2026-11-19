@@ -49,7 +49,14 @@
 
     <RemoveDir Directories="$(PackageStage)" />
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PackageStage)\plugins" />
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\Thunderstore\manifest.json;$(MSBuildProjectDirectory)\..\Thunderstore\icon.png;$(MSBuildProjectDirectory)\..\README.md" DestinationFolder="$(PackageStage)" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\Thunderstore\manifest.json;$(MSBuildProjectDirectory)\..\Thunderstore\icon.png" DestinationFolder="$(PackageStage)" />
+    <!-- Thunderstore can't resolve repo-relative image paths: point them at GitHub instead.
+         (The images only load there once the GitHub repository is public.) -->
+    <PropertyGroup>
+      <ImageBaseUrl>https://raw.githubusercontent.com/aminkatani/Amgard-MimirsVault/main/docs/</ImageBaseUrl>
+      <PackageReadme>$([System.IO.File]::ReadAllText('$(MSBuildProjectDirectory)\..\README.md').Replace('](docs/', ']($(ImageBaseUrl)'))</PackageReadme>
+    </PropertyGroup>
+    <WriteLinesToFile File="$(PackageStage)\README.md" Lines="$([MSBuild]::Escape($(PackageReadme)))" Overwrite="true" Encoding="UTF-8" />
     <Delete Files="$(PackageZip)" />
     <ZipDirectory SourceDirectory="$(PackageStage)" DestinationFile="$(PackageZip)" />
     <Message Importance="high" Text="Installed to $(PluginInstallDir)" />

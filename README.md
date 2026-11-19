@@ -3,6 +3,21 @@
 Magical storage for Valheim by **Amgard**: an Item Sorter that keeps your chests in order and a
 Smelter Box that runs your smelters for you.
 
+## Screenshots
+
+**The Item Sorter window** – every item in the chests around you, summed up and in alphabetical order.
+Take a stack, everything (Shift) or just one (Ctrl).
+
+![Item Sorter window listing items from 14 chests in range](docs/screenshots/sorter-window.webp)
+
+**Category filters** – one click shows only Tools, Food, Weapons, Armor, Materials and more.
+
+![Item Sorter window filtered to Tools: Cultivator, Hammer, Hoe and Torch](docs/screenshots/sorter-filter-tools.webp)
+
+**Search** – type part of a name to find it across all your chests.
+
+![Item Sorter window searching for "torc" and finding Torch](docs/screenshots/sorter-search.webp)
+
 Adds an **Item Sorter** to the Hammer (Furniture tab): a glowing light-blue chest with floating
 sparkles. Cost: 10 Wood, 10 Thistle, 5 Greydwarf eyes.
 
