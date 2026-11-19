@@ -12,7 +12,7 @@ namespace MimirsVault
         public string Name;
         public Color WoodTint;
         public float TintAmount;
-        public bool SkipMetal;            // leave iron bands untinted
+        public bool MultiplyTint;         // multiply instead of blend: wood takes the colour, dark iron stays dark
         public Color Glow;
         public float GlowEmission;
         public Color ParticleTint;        // shader tint of the particle material
@@ -70,25 +70,24 @@ namespace MimirsVault
         public static readonly Palette Ember = new Palette
         {
             Name = "Ember",
-            WoodTint = new Color(0.75f, 0.12f, 0.08f),
-            TintAmount = 0.75f,
-            SkipMetal = true,
+            WoodTint = new Color(1.8f, 0.45f, 0.32f), // multiplier: brown wood -> crimson
+            MultiplyTint = true,
             Glow = new Color(1f, 0.3f, 0.08f),
-            GlowEmission = 0.45f,
-            ParticleTint = new Color(0.5f, 0.5f, 0.5f, 0.5f),
+            GlowEmission = 0.6f,
+            ParticleTint = new Color(0.75f, 0.6f, 0.5f, 0.9f),
             ParticleColor = Fade(Key(new Color(1f, 0.8f, 0.35f), 0f), Key(new Color(1f, 0.3f, 0.05f), 0.5f), Key(new Color(0.6f, 0.05f, 0f), 1f)),
             ParticleRate = 20f,
             ParticleRateActive = 32f,
             Lifetime = new Vector2(0.8f, 1.4f),
             Speed = new Vector2(0.3f, 0.7f),
-            Size = new Vector2(0.03f, 0.07f),
+            Size = new Vector2(0.05f, 0.11f),
             Gravity = -0.05f,
             NoiseStrength = 0.25f,
             EmitUpward = true,
-            EmitterPosition = new Vector3(0f, 0.95f, 0f),
+            EmitterPosition = new Vector3(0f, 1.05f, 0f), // just above the lid
             EmitterScale = new Vector3(1.4f, 0.7f, 0.05f), // after rotating Z up: width, depth, height
-            LightRange = 3f,
-            LightIntensity = 1.1f,
+            LightRange = 4f,
+            LightIntensity = 1.6f,
             Pulse = true,
             Flicker = true,
             RoundParticles = true,
@@ -148,6 +147,11 @@ namespace MimirsVault
                 TintWood(root, p, handle);
                 if (Plugin.Sparkles.Value) handle.Particles = AddParticles(root.transform, p);
                 if (Plugin.Glow.Value) handle.Light = AddLight(root.transform, p);
+                if (LoggedPalettes.Add(p.Name + ":fx"))
+                {
+                    Jotunn.Logger.LogInfo($"{p.Name} look: particles {(handle.Particles != null ? "on" : "off")}, " +
+                                          $"light {(handle.Light != null ? "on" : "off")}");
+                }
                 return handle;
             }
             catch (Exception e)
@@ -165,16 +169,21 @@ namespace MimirsVault
 
         private static void TintWood(GameObject root, Palette palette, VisualHandle handle)
         {
-            foreach (var renderer in root.GetComponentsInChildren<MeshRenderer>())
+            var names = new List<string>();
+            int tinted = 0;
+            foreach (var renderer in root.GetComponentsInChildren<MeshRenderer>(true))
             {
                 foreach (var material in renderer.materials)
                 {
-                    string name = material.name.ToLowerInvariant();
-                    if (palette.SkipMetal && (name.Contains("metal") || name.Contains("iron"))) continue;
-
+                    names.Add($"{material.name} ({material.shader.name})");
                     if (material.HasProperty("_Color"))
                     {
-                        material.color = Color.Lerp(material.color, palette.WoodTint, palette.TintAmount);
+                        var original = material.color;
+                        var tint = palette.MultiplyTint
+                            ? new Color(original.r * palette.WoodTint.r, original.g * palette.WoodTint.g, original.b * palette.WoodTint.b, original.a)
+                            : Color.Lerp(original, palette.WoodTint, palette.TintAmount);
+                        material.color = tint;
+                        tinted++;
                     }
                     if (material.HasProperty("_EmissionColor"))
                     {
@@ -184,7 +193,16 @@ namespace MimirsVault
                     }
                 }
             }
+
+            // Once per box type, record what was found, so a missing look can be diagnosed from the log.
+            if (LoggedPalettes.Add(palette.Name))
+            {
+                Jotunn.Logger.LogInfo($"{palette.Name} look: tinted {tinted} material(s), {handle.GlowMaterials.Count} can glow. " +
+                                      $"Materials: {string.Join(", ", names.Distinct())}");
+            }
         }
+
+        private static readonly HashSet<string> LoggedPalettes = new HashSet<string>();
 
         private static ParticleSystem AddParticles(Transform parent, Palette palette)
         {
